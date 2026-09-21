@@ -20,27 +20,34 @@ Exclusive-drive is the supported path: start **before** inserting the disc. We d
 
 Do not run MakeMKV.app and `bdmount` in the same session.
 
-## Build
-
-A [Rust toolchain](https://rustup.rs/) is required to compile from source.
-
-```sh
-cargo build --release
-```
-
-The binary is `target/release/bdmount`.
-
 ## Install
 
+Download the zip from the GitHub Releases page. Unzip it and copy `bdmount` onto your `PATH`:
+
 ```sh
-scripts/install.sh
+unzip bdmount.zip
+mkdir -p ~/.local/bin
+install -m 755 bdmount ~/.local/bin/bdmount
 ```
 
-This builds a release binary and copies it to `~/.local/bin/bdmount`. Add `~/.local/bin` to your `PATH` if it is not already there.
+Add `~/.local/bin` to your `PATH` if it is not already there:
+
+```sh
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+macOS may quarantine a downloaded binary. If `bdmount` is blocked, clear that flag:
+
+```sh
+xattr -d com.apple.quarantine ~/.local/bin/bdmount
+```
 
 ```sh
 scripts/uninstall.sh    # unmount decrypted views and remove the binary
 ```
+
+To compile from source, see [BUILD.md](BUILD.md).
 
 ## Usage
 
